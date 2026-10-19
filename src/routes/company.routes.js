@@ -7,7 +7,12 @@ import {
     deleteCompanyController
 } from '../controller/company.controller.js'
 
-import { createCompanyValidation , updateCompanyValidation} from "../validations/company.validation.js";
+import { 
+    createCompanyValidation , 
+    updateCompanyValidation,
+    companyIdValidation
+} 
+    from "../validations/company.validation.js";
 import validateMiddleware from "../middlewares/validate.middleware.js";
 
 const router = express.Router()
@@ -19,17 +24,31 @@ router.post(
     validateMiddleware,
     createCompanyController
 )
-router.get("/",getAllCompaniesController)
-router.get("/:id",getCompanyByIdController)
+router.get(
+    "/",
+    getAllCompaniesController)
+
+
+router.get(
+    "/:id",
+    companyIdValidation,
+    validateMiddleware,
+    getCompanyByIdController)
 
 router.patch(
     "/:id",
+    companyIdValidation,
     updateCompanyValidation,
     validateMiddleware,
     updateCompanyController
-)
+);
 
-router.delete("/:id",deleteCompanyController)
+router.delete(
+    "/:id",
+    companyIdValidation,
+    validateMiddleware,
+    deleteCompanyController
+);
 
 
 export default router

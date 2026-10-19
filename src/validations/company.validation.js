@@ -1,4 +1,4 @@
-import { body } from "express-validator";
+import { body ,param } from "express-validator";
 
 export const createCompanyValidation =[
         body("name")
@@ -43,4 +43,15 @@ export const updateCompanyValidation = [
 
         return true;
     })
+];
+
+
+
+
+
+
+export const companyIdValidation = [
+    param("id")
+        .isUUID()
+        .withMessage("Company ID must be a valid UUID")
 ];
